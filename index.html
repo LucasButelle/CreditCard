@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/07_creditCard.js" defer></script>
+        <title>Credit Card</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>Paiement par carte de crédit</h2>
+                <p>Frais de transaction <span>0.00€</span></p>
+ 
+            <section id="carte" class="flip-card">
+                <div id="flip" class="flip-card-inner">
+                    <div class="card-front flip-card-front">
+                        <div class="puce"></div>
+                        <div class="numero" id="numero">• • • • &nbsp; • • • • &nbsp; • • • • &nbsp; • • • •</div>
+                        <div class="name" id="name">First Name</div>
+                        <div class="expiration" id="expiration">MM/YY</div>
+                    </div>
+
+                    <div class="card-back flip-card-back">
+                        <div class="puce-back"></div>
+                        <div class="black-bar"></div>
+                        <div class="white-bar"></div>
+                        <div class="crypto" id="cryptogramme">123</div>
+                        <div class="text">
+                            This card has been issued by Jesse Pollak and is licensed for anyone to use anywhere for free.
+                            It comes with no warranty. For support issues, please visit: github.com/jessepollak/card.
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="formulaire">
+                <div class="form-group">
+                    <label for="numerocarte">Numéro de la carte</label>
+                    <input type="text" id="numerocarte" maxlength="19" required>
+                </div>
+                <div class="form-group">
+                    <label for="titulaire">Titulaire de la carte</label>
+                    <input type="text" id="titulaire" required>
+                </div>
+                <div class="form-group2">
+                    <div class="form-content">
+                        <label for="expirationdate">Date d'expiration</label>
+                        <input type="text" id="expirationdate" placeholder="MM / YY"  maxlength="5" required>
+                    </div>
+                    <div class="form-content">
+                        <label for="crypto">Cryptogramme</label>
+                        <input type="text" id="crypto" maxlength="3" placeholder="CVC" required>
+                    </div>
+                </div>
+                <button type="submit" id="submit">Payer</button>
+    
+            </section>
+        </div>
+    </body>
+</html>
