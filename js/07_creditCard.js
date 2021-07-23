@@ -63,9 +63,11 @@ inputCardCrypto.onkeyup = inputCardCrypto.onkeypress  = function(){
 /** ANIMATION 'FLIP' DE LA CARTE */
 let flip = document.getElementById('flip');
 
+// Au focus de l'input du Crypto (quand on est dans l'input du Crypto), on ajoute à l'ID 'flip' un transform rotate pour effectuer l'animation
 inputCardCrypto.onfocus = () => {
     flip.style.transform = "rotateY(180deg)";
 }
+// Au blur de l'input du Crypto (quand on sort de l'input du Crypto), on remplace le transform rotate pour revenir sur le devant de la carte
 inputCardCrypto.onblur = () => {
     flip.style.transform = "rotateY(0deg)";
 }
