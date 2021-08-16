@@ -4,61 +4,102 @@ let inputCardExpiration = document.getElementById('expirationdate');
 let inputCardCrypto = document.getElementById('crypto');
 
 /** NUMÉRO DE LA CARTE */
-// Je crée une fonction qui agit  a chaque pression d'une touche sur l'input du "Numéro de carte"
-inputCardNumber.onkeyup = inputCardNumber.onkeypress  = function(){
+// Je crée une fonction avec une action/event "oninput" qui va agir sur l'input "Numéro de la carte"
+inputCardNumber.oninput = () => {
+    let cardNumber = inputCardNumber.value;
+
+    let cardNumberReplaced = cardNumber.replace(/[^\d]/g, "");
+    cardNumberReplaced = cardNumberReplaced.substring(0, 16);
+    
+    let cardNumberSections = cardNumberReplaced.match(/\d{1,4}/g);
+    if (cardNumberSections !== null) {
+        cardNumberReplaced = cardNumberSections.join(' ');	
+    }
+
+    if (cardNumber !== cardNumberReplaced) {
+        inputCardNumber.value = cardNumberReplaced;
+    }
+
     let liveCardNumber = document.getElementById('numero');
 
     // Je lui dit de remplacer le texte existant de la carte par la valeur que je rentre dans l'input "Numéro de la carte"
-    liveCardNumber.innerHTML = this.value;
+    liveCardNumber.innerHTML = inputCardNumber.value;
     // SI la valeur de l'input "Numéro de la carte" est vide 
         // ALORS je remplace le texte de la carte par la valeur de base qui est "•••• •••• •••• ••••"
-    if(inputCardNumber.value === ""){
+    if(inputCardNumber.value === "") {
         liveCardNumber.innerHTML = "• • • • &nbsp; • • • • &nbsp; • • • • &nbsp; • • • •";
     }
-}
-// Je crée une fonction avec une action/event "keypress" qui va agir sur l'input "Numéro de la carte"
-inputCardNumber.addEventListener('keypress',function (e) {
-    // SI la taille cette valeur (inputCardNNumber) est égale à 4 ou à 9 ou à 14
-        // ALORS cette valeur est égale à cette même valeur + un espace (Cela permet d'avoir un espace tout les 4 chiffres)
-    if (this.value.length === 4 || this.value.length === 9 || this.value.length === 14) {
-        this.value = this.value += ' ';
-    }
-});
+};
 
 /** TITULAIRE DE LA CARTE */
-inputCardOwner.onkeyup = inputCardOwner.onkeypress  = function(){
+inputCardOwner.oninput = () => {
+    let cardOwner = inputCardOwner.value;
+    let cardOwnerReplaced = cardOwner
+        .replace(/[^A-Za-zÀ-ÿ\s',.-]+$/g, "")
+        .substring(0, 30);
+
+    if (cardOwner !== cardOwnerReplaced) {
+        inputCardOwner.value = cardOwnerReplaced;
+    }
+    delete(cardOwner);
+
     let liveCardOwner = document.getElementById('name');
 
-    liveCardOwner.innerHTML = this.value;
-    if(inputCardOwner.value === ""){
-        liveCardOwner.innerHTML = "First Name";
+    liveCardOwner.innerHTML = inputCardOwner.value.toUpperCase();
+
+    if (inputCardOwner.value === "") {
+        liveCardOwner.innerHTML = "FULL NAME";
     }
-}
+};
 
 /** EXPIRATION DE LA CARTE */
-inputCardExpiration.onkeyup = inputCardExpiration.onkeypress  = function(){
+inputCardExpiration.oninput = () => {
+    let cardExpiration = inputCardExpiration.value;
+    
+    let cardExpirationReplaced = cardExpiration
+        .replace(/\D/g, "")
+        .replace(/^(0[1-9]|1[0-2])\/([0-9]{3})$/mg, "")
+        .substring(0, 5);
+
+    let cardExpirationSections = cardExpirationReplaced.match(/\d{1,2}/g);
+    if (cardExpirationSections !== null) {
+        cardExpirationReplaced = cardExpirationSections.join('/');	
+    }
+
+    if (cardExpiration !== cardExpirationReplaced) {
+        inputCardExpiration.value = cardExpirationReplaced;
+    }
+    delete(cardExpiration);
+    
     let liveCardExpiration = document.getElementById('expiration');
 
-    liveCardExpiration.innerHTML = this.value;
+    liveCardExpiration.innerHTML = inputCardExpiration.value;
+
     if(inputCardExpiration.value === ""){
         liveCardExpiration.innerHTML = "MM / YY";
     }
-}
-inputCardExpiration.addEventListener('keypress',function () {
-    if (this.value.length === 2) {
-        this.value = this.value += '/';
-}
-});
+};
 
 /** CRYPTOGRAMME DE LA CARTE */
-inputCardCrypto.onkeyup = inputCardCrypto.onkeypress  = function(){
+inputCardCrypto.oninput = () => {
+    let cardCrypto = inputCardCrypto.value;
+
+    let cardCryptoReplaced = cardCrypto
+        .replace(/[^0-9]/g, '')
+        .substring(0, 3);
+
+    if (cardCrypto !== cardCryptoReplaced) {
+        inputCardCrypto.value = cardCryptoReplaced;
+    }
+    delete(cardCrypto);
+
     let liveCardCrypto = document.getElementById('cryptogramme');
 
-    liveCardCrypto.innerHTML = this.value;
+    liveCardCrypto.innerHTML = inputCardCrypto.value;
     if(inputCardCrypto.value === ""){
-        liveCardCrypto.innerHTML = "123";
+        liveCardCrypto.innerHTML = "• • •";
     }
-}
+};
 
 /** ANIMATION 'FLIP' DE LA CARTE */
 let flip = document.getElementById('flip');
